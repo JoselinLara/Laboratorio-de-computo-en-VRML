@@ -1,0 +1,143 @@
+#VRML V2.0 utf8
+DirectionalLight{
+	ambientIntensity 0.5
+	color 1 1 1
+	intensity 1
+	direction -0.5 -0.5 0
+}
+PROTO lamp[
+	field SFVec3f Direccion 0 0 0
+]
+{
+	Collision{
+		collide FALSE
+			children [
+				Transform{#focos
+					translation IS Direccion
+					rotation 0 0 1 1.5708
+					children[
+						Shape{
+							appearance Appearance {
+								material Material{
+									emissiveColor 1 1 1
+									ambientIntensity 1
+								}
+								
+							}
+							geometry Cylinder{ 
+								height 38
+								radius 0.7
+							}
+						}
+					]
+
+											}
+										]
+									}
+								}
+						
+								PROTO barra[
+									field SFVec3f Direccion 0 0 0
+								]
+								{
+									Collision{
+									collide FALSE
+										children [
+											Transform{
+												translation IS Direccion	
+												children[
+													Shape{
+														appearance Appearance {
+															texture ImageTexture {
+																url "barra.jpg"
+															}
+														}
+														geometry Box{ 
+															size 0.5 0.5 19
+														}
+													}
+												]
+
+											}
+										]
+									}
+								}
+					PROTO lampara[
+						field SFVec3f Direccion 0 0 0
+					]
+					{
+						Collision{
+							collide FALSE
+								children [
+									Transform{
+										translation IS Direccion
+										children[
+											Transform{ #caja grande
+												children[
+													Shape{
+														appearance Appearance {
+															texture ImageTexture {
+																url "barra.jpg"
+															}
+															textureTransform TextureTransform {scale 6 6 }
+														}
+														geometry IndexedFaceSet{
+															coord Coordinate{
+																point[
+																	0 5 0,#0
+																	0 0 0,#1
+																	40 0 0,#2 
+																	40 5 0,#3
+																	40 0 -20,#4
+																	40 5 -20,#5
+																	0 5 -20,#6
+																	0 0 -20,#7
+																]
+															}
+															solid FALSE
+															coordIndex[
+																0,1,2,3,0,-1,
+																5,3,2,4,5,-1,
+																6,7,4,5,6,-1,
+																6,0,1,7,6,-1
+																6,0,3,5,6,-1
+															]	
+														}
+													}
+												]
+											}
+											Transform{
+												children[
+													lamp{Direccion 20 3 -5}
+													lamp{Direccion 20 3 -10}
+													lamp{Direccion 20 3 -15}
+													barra{Direccion  3 1 -10}
+													barra{Direccion  6 1 -10}	
+													barra{Direccion  9 1 -10}
+													barra{Direccion  12 1 -10}
+													barra{Direccion  15 1 -10}
+													barra{Direccion  18 1 -10}
+													barra{Direccion  21 1 -10}
+													barra{Direccion  24 1 -10}
+													barra{Direccion  27 1 -10}
+													barra{Direccion  30 1 -10}
+													barra{Direccion  33 1 -10}
+													barra{Direccion  36 1 -10}
+												]
+											}
+											Transform{
+												translation 40 0 0
+												scale 1 1 2
+												rotation 0 1 0 1.5708
+												children[
+													
+													barra{Direccion  8 1 -10}	
+													barra{Direccion  12 1 -10}
+												]
+											}
+										]
+									}
+								]
+							}
+					}
+lampara{}

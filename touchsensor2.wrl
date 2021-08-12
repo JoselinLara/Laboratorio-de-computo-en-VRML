@@ -1,0 +1,129 @@
+#VRML V2.0 utf8
+
+NavigationInfo {
+  type [ "WALK" "ANY"  ] 
+   # transitionType [ "ANIMATE"  ] 
+}
+
+Viewpoint {
+  description "Vista inicial"
+  position 0 1.4 4.5
+}
+
+#muro
+
+Transform {
+  children [
+      Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor .6 .2 0
+            shininess 0
+          }
+          texture ImageTexture {
+            url [ "brick_3.jpg" "http://X3dGraphics.com/examples/X3dForWebAuthors/Chapter08-UserInteractivity/brick_3.jpg" "http://www.dei.isep.ipp.pt/~losa/public/cg/UniversalMedia/textures/urban/brick_3.jpg" ]
+          }
+        }
+        geometry DEF Wall IndexedFaceSet {
+          coordIndex [ 0 1 2 3 -1 0 3 8 11 -1 4 5 6 7 -1 8 9 10 11 -1 12 15 14 13 -1 12 23 20 15 -1 16 19 18 17 -1 20 23 22 21 -1 0 1 13 12 -1 2 14 15 3 -1 4 16 17 5 -1 7 6 18 19 -1 8 20 21 9 -1 11 10 22 23 -1 0 11 23 12 -1 1 13 14 2 -1 3 15 16 4 -1 7 19 20 8 -1 5 17 18 6 -1 9 21 22 10 -1 ]
+          coord Coordinate {
+            point [ -2 3 0 -2 0 0 -1.5 0 0 -1.5 2.25 0 -.5 2.25 0 -.5 0 0 .5 0 0 .5 2.25 0 1.5 2.25 0 1.5 0 0 2 0 0 2 3 0 -2 3 -.1 -2 0 -.1 -1.5 0 -.1 -1.5 2.25 -.1 -.5 2.25 -.1 -.5 0 -.1 .5 0 -.1 .5 2.25 -.1 1.5 2.25 -.1 1.5 0 -.1 2 0 -.1 2 3 -.1 ]
+          }
+        }
+      }
+  ]
+}
+
+
+#puerta izquierda
+
+DEF DoorLeftTransform Transform {
+  center -.5 0 0
+  translation -1 1.125 -.05
+  children [
+
+		Sound {
+    	source DEF Sonido1 AudioClip {
+        	url "abrir_puerta.wav"
+        	loop FALSE
+    	},
+    	spatialize TRUE
+    	}
+
+      DEF Door Group {
+        children [
+            DEF DoorShape Shape {
+              appearance DEF DoorApp Appearance {
+                material DEF DoorMat Material {
+                  diffuseColor 0 .7 0
+                }
+                texture DEF DoorImage ImageTexture {
+                  url [ "door_1.jpg" "http://X3dGraphics.com/examples/X3dForWebAuthors/Chapter08-UserInteractivity/door_1.jpg" "http://www.dei.isep.ipp.pt/~losa/public/cg/UniversalMedia/textures/urban/door_1.jpg" ]
+                }
+              }
+              geometry DEF DoorGeometry IndexedFaceSet {
+                coordIndex [ 0 1 2 3 -1 4 7 6 5 -1 0 1 5 4 -1 1 5 6 2 -1 2 6 7 3 -1 3 7 6 4 -1 ]
+                coord Coordinate {
+                  point [ -.5 -1.125 .05 .5 -1.125 .05 .5 1.125 .05 -.5 1.125 .05 -.5 -1.125 -.05 .5 -1.125 -.05 .5 1.125 -.05 -.5 1.125 -.05 ]
+                }
+                texCoord TextureCoordinate {
+                  point [ 0 0 1 0 1 1 0 1 0 0 1 0 1 1 0 1 1 0 .95 0 1 .95 .95 .95 1 0 .95 0 1 .95 .95 .95 1 0 .95 0 1 .95 .95 .95 1 0 .95 0 1 .95 .95 .95 ]
+                }
+              }
+            }
+        ]
+      }
+      DEF MoverLeft OrientationInterpolator {
+        key [ 0 1 ]
+        keyValue [ 0 1 0 0 0 1 0 -1 ]
+      }
+      DEF TimerLeft TimeSensor {
+        cycleInterval 3
+      }
+      DEF TouchLeft TouchSensor {
+         # description "touch to activate"
+      }
+  ]
+
+  ROUTE	TouchLeft.touchTime TO TimerLeft.startTime
+  ROUTE	TouchLeft.touchTime TO Sonido1.startTime
+  ROUTE	TimerLeft.fraction_changed TO MoverLeft.set_fraction
+  ROUTE	MoverLeft.value_changed	TO DoorLeftTransform.rotation
+
+
+}
+
+
+#puerta derecha
+
+DEF DoorRight Transform {
+  center -.5 0 0
+  translation 1 1.125 -.05
+  children [
+      USE Door
+
+		Sound {
+    	source DEF Sonido2 AudioClip {
+        	url "abrir_puerta.wav"
+        	loop FALSE
+    	},
+    	spatialize TRUE
+    	}
+
+
+      DEF MoverRight OrientationInterpolator {
+        key [ 0 1 ]
+        keyValue [ 0 1 0 0 0 1 0 -1 ]
+      }
+      DEF TimerRight TimeSensor {
+        cycleInterval 3
+      }
+      DEF TouchRight TouchSensor {
+         # description "touch to activate"
+      }
+  ]
+ROUTE TouchRight.touchTime TO TimerRight.startTime
+ROUTE TouchRight.touchTime TO Sonido2.startTime
+ROUTE TimerRight.fraction_changed TO MoverRight.set_fraction
+ROUTE MoverRight.value_changed TO DoorRight.rotation
+}

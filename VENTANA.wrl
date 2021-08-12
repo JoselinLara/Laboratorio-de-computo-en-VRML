@@ -1,0 +1,198 @@
+#VRML V2.0 utf8
+PROTO ventana[
+	field SFVec3f Direccion 0 0 0
+]
+{
+	Transform{
+	translation IS Direccion
+		children[
+			Collision{
+						collide TRUE
+						children [
+							Transform{
+									children Shape{
+										geometry Box{ 
+											size 5 0.2 0.1
+										}
+										appearance Appearance {
+											texture ImageTexture {
+												url ["v.jpg"]
+											}
+										}
+										
+									}
+							}
+						]	
+					}
+			Collision{
+						collide TRUE
+						children [
+							Transform{
+							translation 0 -5 0
+									children Shape{# el piso
+										geometry Box{ 
+											size 5 0.2 0.1
+										}
+										appearance Appearance {
+											texture ImageTexture {
+												url ["v.jpg"]
+											}
+										}
+										
+									}
+							}
+						]	
+					}
+			Collision{
+						collide TRUE
+						children [
+							Transform{
+							translation -2.4 -2.5 0
+									children Shape{# el piso
+										geometry Box{ 
+											size 0.2 5 0.1
+										}
+										appearance Appearance {
+											texture ImageTexture {
+												url ["v.jpg"]
+											}
+										}
+										
+									}
+							}
+						]	
+				}		
+			Collision{
+						collide TRUE
+						children [
+							Transform{
+							translation 2.4 -2.5 0
+									children Shape{# el piso
+										geometry Box{ 
+											size 0.2 5 0.1
+										}
+										appearance Appearance {
+											texture ImageTexture {
+												url ["v.jpg"]
+											}
+										}
+										
+									}
+							}
+						]	
+				}
+			Collision{
+						collide FALSE
+						children [
+							Transform{
+							translation 0 -2.5 0
+									children Shape{# el piso
+										geometry Box{ 
+											size 4.6 4.8 0.1
+										}
+										appearance Appearance {
+											material Material{
+												diffuseColor  1 1 1
+												transparency 0.9
+											}
+										}
+										
+									}
+							}
+						]	
+				}
+				
+		]
+	}
+}
+PROTO b[
+	field SFVec3f Direccion 0 0 0
+]
+{
+Collision{
+	collide TRUE
+		children [ # barra de izquierda
+			Transform{
+			translation IS Direccion
+				children Shape{
+					geometry Box{ 
+						size 10 30 0.1
+					}
+					appearance Appearance {
+						texture ImageTexture {
+							url ["pared.jpg"]
+						}textureTransform TextureTransform {
+											scale 30 20 }
+					}
+										
+				}
+			}
+		]	
+}
+}
+Transform{
+rotation 0 1 0 -1.5708
+	children[
+		Collision{
+			collide TRUE
+				children [ # barra de abajo
+					Transform{
+						children Shape{
+							geometry Box{ 
+								size 200 15 0.1
+							}
+							appearance Appearance {
+								texture ImageTexture {
+									url ["pared.jpg"]
+								}textureTransform TextureTransform {
+													scale 30 20 }
+							}
+												
+						}
+					}
+				]	
+		}
+		Collision{
+			collide TRUE
+				children [ # barra de arriba
+					Transform{
+					translation 0 40 0
+						children Shape{
+							geometry Box{ 
+								size 200 5 0.1
+							}
+							appearance Appearance {
+								texture ImageTexture {
+									url ["pared.jpg"]
+								}textureTransform TextureTransform {
+													scale 30 20 }
+							}
+												
+						}
+					}
+				]	
+		}
+
+		b{Direccion -95 22.5 0}
+		b{Direccion -35 22.5 0}
+		b{Direccion 22 22.5 0}
+		Transform{
+			scale 2.5 1 1
+			children[
+				b{Direccion 35 22.5 0}
+			]
+		}
+		Transform{
+			scale 5 6 5
+			children[
+				ventana{Direccion -15.5 6.3 0}
+				ventana{Direccion -10.5 6.3 0}
+				ventana{Direccion -3.5 6.3 0}
+				ventana{Direccion -15.5 6.3 0}
+				ventana{Direccion 1.2 6.3 0}
+				ventana{Direccion 7.5 6.3 0}
+				ventana{Direccion 12.5 6.3 0}
+			]
+		}
+	]
+}	

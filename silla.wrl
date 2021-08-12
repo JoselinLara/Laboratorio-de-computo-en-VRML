@@ -1,0 +1,51 @@
+#VRML V2.0 utf8
+PROTO Banquillo[
+	field SFColor colorPatas 1 1 0
+	field SFColor colorAsiento 0 0 1
+	field SFVec3f proporciones 1 1 1
+	field SFVec3f posicion 0 0 0
+]
+{
+	PROTO Pata[
+		field SFColor colorPata 1 1 0
+		field SFVec3f posicion 0 0 0
+	]
+	{
+	
+		Transform{
+			translation IS posicion
+			children Shape{
+				geometry Cylinder {
+					radius 0.1 
+					height 1
+				}
+				appearance Appearance{
+					material Material{
+						diffuseColor IS colorPata
+					}
+				}
+			}
+		}
+	}
+	Transform{
+		translation IS posicion
+		scale IS proporciones
+		children[
+			Shape{ #Asiento
+				geometry Box{
+					size 1 0.2 1				
+				}
+				appearance Appearance{
+					material Material{
+						diffuseColor IS colorAsiento
+					}
+				}
+			}
+			Pata{posicion 0.4 -0.6 0.4 colorPata IS colorPatas}
+				Pata{posicion -0.4 -0.6 0.4 colorPata IS colorPatas}
+				Pata{posicion -0.4 -0.6 -0.4 colorPata IS colorPatas}
+				Pata{posicion 0.4 -0.6 -0.4 colorPata IS colorPatas}
+		]
+	}
+}
+Banquillo{}

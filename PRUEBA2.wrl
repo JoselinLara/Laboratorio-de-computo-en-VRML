@@ -1,0 +1,89 @@
+#VRML V2.0 utf8
+PROTO pc[
+	field SFVec3f Direccion 0 0 0
+]
+{
+Transform{
+	translation IS Direccion
+	children[
+		Transform{
+			translation 0 1 0
+			children Shape{# 
+				appearance Appearance {
+					texture ImageTexture {
+						url "pantalla.jpg"
+					}
+				}
+				geometry IndexedFaceSet{
+							coord Coordinate{
+								point[
+									0 0 0,#0
+									0 10 0,#1
+									10 0 0,#2 
+									10 10 0,#3
+								]
+							}
+							solid FALSE
+							coordIndex[
+								1,0,2,3,1,-1	
+							]	
+				}
+				}
+		}
+		Transform{
+			
+			translation 0 1 -0.05
+			children Shape{# 
+				appearance Appearance {
+					texture ImageTexture {
+						url "pantalla1.jpg"
+					}
+				}
+				geometry IndexedFaceSet{
+							coord Coordinate{
+								point[
+									0 0 0,#0
+									0 10 0,#1
+									10 0 0,#2 
+									10 10 0,#3
+								]
+							}
+							solid FALSE
+							coordIndex[
+								1,0,2,3,1,-1	
+							]	
+				}
+				}
+			}
+			Transform{
+			translation 5 1 -0.05
+			children Shape{# 
+				appearance Appearance {
+					texture ImageTexture {
+						url "gabinete.jpg"
+					}
+				}
+				geometry Box{
+					size 10 2 5
+				}
+				}
+			}
+			Transform{
+				translation 6 0.5 6
+			scale 0.4 0.4 0.4
+				rotation 1 0 0 -1.5708
+				children Shape{# 
+					appearance Appearance {
+						texture ImageTexture {
+							url "teclado.jpg"
+						}
+					}
+					geometry Box{
+						size 40 10 0.1
+					}
+				}	
+			}
+		]
+	}
+}
+pc{}
